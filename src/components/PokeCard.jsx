@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Badge from "./badge/badge";
 import { Audio } from 'react-loader-spinner'
 import "./PokeCard.scss"
+import { useNavigate } from "react-router-dom";
 
 // Se ho il mouse sopra alla PokeCard
 // voglio vedere l'immagine front_shiny
@@ -10,23 +11,35 @@ import "./PokeCard.scss"
 function PokeCard({ url, nascosto }) {
     const [data, setData] = useState();
     const [loading, setloading] = useState(true);
+    const [hasError, setHasError] = useState(false);
     const [mouseOver, setMouseOver] = useState(false);
+    const navigate = useNavigate();
     const fetchPokeDetails = () => {
         fetch(url)
             .then(response => {
                 return response.json();
             }).then(remoteData => {
                 // Questi sono i risultati effettivi
-                console.log(remoteData);
                 setData(remoteData);
+                setHasError(false);
                 setloading(false);
             }).catch(err => {
+                setHasError(true);
+                setTimeout(() => {
+                    navigate('/');
+                }, 5000);
                 console.error('ops', err);
             });
     };
     useEffect(() => {
         fetchPokeDetails();
     }, [url]);
+
+    if (hasError) {
+        return (
+            <h2>Errore</h2>
+        )
+    }
 
     if (nascosto) {
         return null;
@@ -48,6 +61,9 @@ function PokeCard({ url, nascosto }) {
             }}
             onMouseOut={() => {
                 setMouseOver(false);
+            }}
+            onClick={() => {
+                navigate('/pokemon/' + data.id)
             }}
         >
             <div>
