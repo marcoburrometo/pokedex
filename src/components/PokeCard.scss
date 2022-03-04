@@ -1,6 +1,6 @@
 .item-list {
     text-transform: capitalize;
-    background-color: #f1f1f1;
+    background-color: #fff;
     padding: 1rem 0.25rem;
     border: 1px solid #bababa;
     border-collapse: collapse;
@@ -11,6 +11,10 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    transition: background-color 0.2s ease-in-out;
+    &:hover {
+        background-color: #dadada;
+    }
 }
 .type {
     display: flex;

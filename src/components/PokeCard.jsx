@@ -55,7 +55,7 @@ function PokeCard({ url, nascosto }) {
             </div>
             <div className='properties'>
                 <img
-                    src={mouseOver ? data.sprites.back_default : data.sprites.front_default}
+                    src={mouseOver ? data.sprites.front_default : data.sprites.back_default}
                     alt={data.name}
                 />
                 <div className="type">
