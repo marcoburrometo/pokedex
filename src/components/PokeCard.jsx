@@ -3,12 +3,15 @@ import Badge from "./badge/badge";
 import { Audio } from 'react-loader-spinner'
 import "./PokeCard.scss"
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addPokemon } from "../slices/carello";
 
 // Se ho il mouse sopra alla PokeCard
 // voglio vedere l'immagine front_shiny
 // altrimenti voglio vedere l'immagine front_default
 
 function PokeCard({ url, nascosto }) {
+    const dispatch = useDispatch();
     const [data, setData] = useState();
     const [loading, setloading] = useState(true);
     const [hasError, setHasError] = useState(false);
@@ -84,6 +87,9 @@ function PokeCard({ url, nascosto }) {
                     })}
                 </div>
             </div>
+            <button onClick={() => {
+                dispatch(addPokemon(data));
+            }}>Aggiungi a carrello</button>
         </div>
     )
 }
